@@ -1,3 +1,9 @@
+'''
+Copyright 2020 OPPO LLC
+This work is licensed under a Creative Commons 
+Attribution-NonCommercial 4.0 International License.
+The software is for educational and academic research purpose only.
+'''
 import torch
 import torch.nn as nn
 from torch.nn import init
