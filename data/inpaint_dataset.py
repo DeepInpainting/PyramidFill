@@ -1,3 +1,9 @@
+'''
+Copyright 2020 OPPO LLC
+This work is licensed under a Creative Commons 
+Attribution-NonCommercial 4.0 International License.
+The software is for educational and academic research purpose only.
+'''
 import torch
 import numpy as np
 import cv2
@@ -10,20 +16,6 @@ from torch.utils.data import Dataset
 ALLMASKTYPES = ['centerbox','halfbox','single_bbox', 'bboxes', 'free_form']
 
 class InpaintDataset(Dataset):
-    """
-    Dataset for Inpainting task
-    Params:
-        img_flist_path(str): The file which contains img file path list (e.g. test.flist)
-        mask_flist_paths_dict(dict): The dict contain the files which contains the pkl or xml file path for
-                                generate mask. And the key represent the mask type (e.g. {"bbox":"bbox_flist.txt", "seg":..., "random":None})
-        resize_shape(tuple): The shape of the final image (default:(256,256))
-        transforms_oprs(list) : Determine which transformation used on the imgae (default:['random_crop', 'to_tensor'])
-        random_bbox_shape(tuple): if use random bbox mask, it define the shape of the mask (default:(32,32))
-        random_bbox_margin(tuple): if use random bbox, it define the margin of the bbox which means the distance between the mask and the margin of the image
-                                    (default:(64,64))
-    Return:
-        img, *mask
-    """
     def __init__(self, opt):
         assert opt.mask_type in ALLMASKTYPES
         self.opt=opt
@@ -31,8 +23,6 @@ class InpaintDataset(Dataset):
         with open(self.img_flist_path, 'r') as f:
             self.img_paths = f.read().splitlines()
         self.transform = transforms.Compose([
-            #transforms.Resize(int(opt.imgsize * 1.12), Image.BICUBIC),
-            #transforms.RandomCrop(opt.imgsize, opt.imgsize),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
